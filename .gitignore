@@ -3,4 +3,7 @@
 *.d
 .vscode
 */main
+**/main**/main
 **/main
+Week2Prj/uiuc/make
+Week2Prj/version.txt

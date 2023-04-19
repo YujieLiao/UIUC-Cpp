@@ -1,6 +1,6 @@
 /**
  * C++ program sending a Cube by reference.
- * 
+ *
  * @author
  *   Wade Fagen-Ulmschneider <waf@illinois.edu>
  */
@@ -10,8 +10,11 @@
 
 using uiuc::Cube;
 
-bool sendCube(Cube & c) {    
+bool sendCube(Cube &c) {
   // ... logic to send a Cube somewhere ...
+
+  c.setLength(20);
+  std::cout << c.getVolume() << std::endl; // 8000
   return true;
 }
 
@@ -21,6 +24,7 @@ int main() {
 
   // Send the cube to someone
   sendCube(c);
+  std::cout << c.getVolume() << std::endl; // 8000
 
   return 0;
 }
