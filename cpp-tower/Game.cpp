@@ -1,6 +1,6 @@
 /**
  * C++ class for a game of the Tower of Hanoi puzzle.
- * 
+ *
  * @author
  *   Wade Fagen-Ulmschneider <waf@illinois.edu>
  */
@@ -18,9 +18,39 @@ using std::endl;
 // (Feel free to call "helper functions" to help you solve the puzzle.)
 void Game::solve() {
   // Prints out the state of the game:
-  cout << *this << endl;
+  while (stacks_[2].size() != 4) {
+    _legalMove(0, 1);
+    _legalMove(0, 2);
+    _legalMove(1, 2);
+    // cout << *this << endl;
+  }
+  // cout << *this << endl;
 
   // @TODO -- Finish solving the game!
+}
+
+void Game::_legalMove(unsigned index1, unsigned index2) {
+  if (stacks_[index1].size() == 0 && stacks_[index2].size() > 0) {
+    _move(index2, index1);
+  } else if (stacks_[index1].size() > 0 && stacks_[index2].size() == 0) {
+    _move(index1, index2);
+  } else if (stacks_[index1].size() > 0 && stacks_[index2].size() > 0) {
+    if (stacks_[index1].peekTop().getLength() <
+        stacks_[index2].peekTop().getLength()) {
+      _move(index1, index2);
+    } else {
+      _move(index2, index1);
+    }
+  } else {
+    cout << "what is it doing" << endl;
+  }
+  //  cout << *this << endl;
+}
+
+void Game::_move(unsigned index1, unsigned index2) {
+  Cube cube = stacks_[index1].removeTop();
+  stacks_[index2].push_back(cube);
+  cout << *this << endl;
 }
 
 // Default constructor to create the initial state:
@@ -28,7 +58,7 @@ Game::Game() {
   // Create the three empty stacks:
   for (int i = 0; i < 3; i++) {
     Stack stackOfCubes;
-    stacks_.push_back( stackOfCubes );
+    stacks_.push_back(stackOfCubes);
   }
 
   // Create the four cubes, placing each on the [0]th stack:
@@ -45,7 +75,7 @@ Game::Game() {
   stacks_[0].push_back(yellow);
 }
 
-std::ostream& operator<<(std::ostream & os, const Game & game) {
+std::ostream &operator<<(std::ostream &os, const Game &game) {
   for (unsigned i = 0; i < game.stacks_.size(); i++) {
     os << "Stack[" << i << "]: " << game.stacks_[i];
   }
